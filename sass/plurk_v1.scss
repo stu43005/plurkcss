@@ -1,0 +1,1287 @@
+@import "compass/css3";
+
+$page-background: "https://mail.google.com/mail/images/2/5/tree/mostlycloudy/header_tile.jpg";
+$page-background-color: #CDE4F3;
+$loading-img: "http://images.plurk.com/4428665_1dc2f639db36d8b6b820ce929608b64e.gif";
+$cmp-plruk-img: "http://dl.dropbox.com/u/4211700/chrome/plurk_command.png";
+$cmp-plruk-color: #80AAFF;
+$cmp-arrow-left-img: "https://dl.dropbox.com/u/4211700/chrome/be_rw.gif";
+$cmp-arrow-right-img: "https://dl.dropbox.com/u/4211700/chrome/be_ff.gif";
+$cmp-back-to-today-img: "https://dl.dropbox.com/u/4211700/chrome/be_bs.gif";
+$text-color: #333333;
+$text-color-2: #FFFFFF;
+$text-color-3: #555555;
+$text-size: 12px;
+$link-color: #7EAACF;
+$mute-link-color: #CE8C8D;
+$unmute-link-color: #CCCCCC;
+$user-color: #675E4C;
+$dashboard-color: #9EC0DA;
+$dashboard-color-2: #FFFFFF;
+$karma-color: red;
+$GB-Window-color: #ACD2EF;
+$highlight-owner: lighten($dashboard-color, 21%); // 調亮21%
+
+@mixin username($important: false) {
+	/* 使用者名稱 */
+	@if $important == false {
+		color: $user-color;
+	} @else {
+		color: $user-color !important;
+	}
+	font: $text-size airal, sans-serif;
+	font-weight: bold;
+}
+@mixin qualifier {
+	.qualifier, .m_qualifier, .r_qualifier {
+		/* 噗浪類型標籤 */
+		@include border-radius(5px);
+	}
+	.qual_embedded {
+		/* 轉撲內文標籤 */
+		padding: 0 3px 0 3px;
+		margin: 0 3px 0 4px;
+		//color: white;
+	}
+}
+@mixin plurk-command {
+	/* 「Plurk」按鈕 */
+	background: $cmp-plruk-color url($cmp-plruk-img);
+	padding: 0px 5px;
+	@include border-radius(8px);
+	@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+}
+
+// ==================================================
+
+body, html {
+	background: $page-background-color url($page-background) repeat-x 364px 18px;
+	font: $text-size verdana, sans-serif;
+	overflow-x: hidden;
+}
+
+// ==================================================
+/* 頁首的BAR */
+#page_title {
+	/* 個人檔案頂部標題 */
+	font: ($text-size + 1) airal, sans-serif;
+}
+#top_bar, #top_login {
+	line-height: normal;
+	a, .item {
+		/* 「首頁、個人檔案、我的朋友、通知」字樣 */
+		font: $text-size airal, sans-serif;
+		color: $text-color;
+		&.on {
+			/* 標示目前的位置 */
+			color: $text-color;
+			img {
+				border-bottom: none;
+			}
+		}
+		&:hover {
+			position: relative;
+			top: 1px;
+			color: $text-color-2;
+		}
+		&#edit_link:hover {
+			/* 「編輯」字樣 滑過效果 */
+			background: none;
+			color: $text-color-2;
+		}
+		#alert_beacon {
+			/* 通知數字 */
+			color: $text-color-2;
+		}
+	}
+}
+/* 未登入噗浪頁面 */
+#top_login #sign_up {
+	border: none;
+	@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+}
+#top_login #sign_up, #validate_email, #sign_up_small {
+	background: $dashboard-color;
+}
+
+
+// ==================================================
+/* 河道 */
+#timeline_holder {
+	background: none;
+	height: 390px;
+	border: none;
+	border-top: 1px solid $dashboard-color;
+	margin: 0;
+	#div_loading .cnt .cmp_loading,
+	#timeline_bg .loading_div .cmp_loading {
+		/* 主頁面loading圖 */
+		background: transparent url($loading-img) no-repeat scroll center top !important;
+		margin-top: 140px !important;
+	}
+	#timeline_cnt {
+		.plurk {
+			&.muted {
+				/* 消音噗半透明 */
+				@include opacity(0.3);
+			}
+			&.link_extend.muted {
+				/* 滑鼠移過消音噗微亮 */
+				@include opacity(0.7);
+			}
+			&.plurk_box.muted {
+				/* 展開消音噗全亮 */
+				@include opacity(1);
+			}
+			.td_img {
+				.p_img {
+					/* 發噗者頭像 */
+					border: 1px solid #ccc;
+					height: 25px;
+					width: 25px;
+					img {
+						height: 25px;
+						width: 25px;
+						border: none;
+						@include opacity(0.8);
+					}
+				}
+			}
+			.plurk_cnt {
+				font: $text-size airal, sans-serif;
+				background: #fff !important;
+				@include opacity(0.8);
+				@include border-bottom-right-radius(8px);
+				@include border-top-right-radius(8px);
+				@include border-bottom-left-radius(8px);
+				border: none;
+				min-height: 30px;
+				.td_qual {
+					padding: 5px 0px 2px 5px;
+				}
+				.td_cnt {
+					.text_holder {
+						// 噗浪最小寬度
+						min-width: 120px;
+					}
+					.manager {
+						.mute, .delete {
+							/* 「消音、刪除」連結 */
+							color: $mute-link-color;
+						}
+						.unmute {
+							/* 「解除消音、收回讚」連結 */
+							color: $unmute-link-color !important;
+						}
+						.action {
+							/* 「讚、轉噗、推文、編輯」連結 */
+							color: $link-color;
+						}
+					}
+				}
+				.td_info {
+					@include border-bottom-right-radius(8px);
+				}
+			}
+			.plurk_cnt, .p_img img {
+				border: none;
+				background: rgba(255,255,255,0.5) !important;
+			}
+			.plurk_cnt, .p_img img, .response_count {
+				@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+			}
+			&.display.plurk_box {
+				/* 展開留言上層顯示 */
+				z-index: 1450;
+			}
+			&.link_extend {
+				/* 滑鼠移過後上層顯示 */
+				z-index: 1451;
+				.plurk_cnt, .p_img img {
+					background: rgba(255,255,255,0.8) !important;
+				}
+				.plurk_cnt, .p_img img, .response_count {
+					@include box-shadow(1px 3px 16px rgba(0,0,0,0.4));
+				}
+			}
+			&.plurk_box {
+				.plurk_cnt {
+					&, .td_info {
+						/* 顯示回噗後關閉右下圓角 */
+						@include border-bottom-right-radius(0);
+						@include border-bottom-left-radius(0);
+						@include opacity(1);
+					}
+				}
+				.plurk_cnt, .p_img img {
+					background: rgba(255,255,255,1) !important;
+				}
+				.plurk_cnt, .p_img img, .response_count {
+					@include box-shadow(1px 3px 20px rgba(0,0,0,0.4));
+				}
+			}
+			.td_response_count {
+				.response_count {
+					/* 回噗數 */
+					@include opacity(0.8);
+					@include border-radius(5px);
+					font-family: tahoma, sans-serif;
+					font-size: ($text-size - 1);
+					padding: 6px 5px 8px;
+					line-height: 25px;
+				}
+			}
+		}
+	}
+	#timeline_bg {
+		.bottom_start, .bottom_end {
+			/* 時間軸橫柱的時間顏色 */
+			color: ($text-color + #222222);
+			font: ($text-size - 2) tahoma, sans-serif;
+			font-weight: bold;
+			padding-top: 6px;
+		}
+		.day_start {
+			.div_inner {
+				/* 換日線高度 */
+				height: 370px;
+			}
+			.div_bottom {
+				/* 換日線下方「今天」的位置 */
+				margin: -2px 0;
+			}
+			.bottom_start {
+				/* 換日線下方「今天」的文字顏色 */
+				color: $link-color !important;
+			}
+		}
+	}
+	#bottom_line {
+		/* 時間軸橫柱 */
+		background: #fff;
+		border: none;
+		@include opacity(0.6);
+		@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+	}
+}
+#time_show {
+	/* 河道下的發噗時間顯示 */
+	margin-top: -16px;
+	@include border-top-left-radius(5px);
+	@include border-top-right-radius(5px);
+	span {
+		color: $text-color;
+		font: ($text-size - 2) tahoma, sans-serif;
+	}
+}
+
+/* 回噗欄 */
+#form_holder {
+	@include box-shadow(1px 8px 20px rgba(0,0,0,0.4));
+	.caption {
+		/* 「最近回應」、「您的回應」 */
+		background: $dashboard-color !important;
+		color: $text-color-2 !important;
+		font-size: ($text-size - 1) !important;
+	}
+	.list {
+		padding-top: 0px !important;
+		min-height: 250px;
+		.loading {
+			/* 每一則噗中的loading圖 */
+			background: transparent url($loading-img) no-repeat scroll center center !important;
+			margin-top: 30px;
+			img {
+				height: 0;
+				width: 0;
+			}
+		}
+		.plurk {
+			table {
+				width: 100%;
+				.td_img {
+					width: 0;
+				}
+			}
+			&.highlight_owner .plurk_cnt {
+				/* 噗主回應 */
+				background: $highlight-owner !important;
+				@include border-radius(8px);
+			}
+		}
+	}
+	.mini_form {
+		.qual_holder {
+			@include qualifier;
+		}
+		.input_holder textarea#input_small {
+			/* 回噗對話框 */
+			height: 30px !important;
+			@include border-radius(6px);
+			@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+		}
+	}
+	.info_box {
+		.limited_box, // 私人訊息
+		.favorite_count, // 讚人數訊息
+		.replurk_count { // 轉噗人數訊息
+			a {
+				color: $link-color;
+			}
+		}
+	}
+	&, div.info_box:last-child {
+		/* 回噗欄下方圓角 */
+		@include border-bottom-right-radius(5px);
+		@include border-bottom-left-radius(5px);
+	}
+}
+.response_time {
+	/* 回噗右邊時間 */
+	@include border-top-right-radius(8px);
+	@include border-bottom-right-radius(8px);
+	@include opacity(0.7);
+	@include box-shadow(0.1px 2px 5px rgba(0,0,0,0.5));
+	&:hover {
+		@include opacity(1);
+	}
+	.reply_to, .del_icon {
+		/* 「回覆、刪除」連結 */
+		color: $link-color;
+	}
+}
+
+/* 首噗、回噗 共用樣式 */
+@mixin text_holder {
+	/* 噗浪內文字型 */
+	font-size: $text-size;
+	font-family: verdana;
+	padding: 3px;
+	// 修正斷行
+	word-wrap: break-word;
+	word-break: break-all;
+	a {
+		color: $link-color;
+		&.pictureservices img {
+			padding: 0 2px;
+		}
+	}
+}
+#timeline_holder #timeline_cnt, #form_holder .list {
+	.plurk {
+		.plurk_cnt {
+			.td_qual {
+				a.name {
+					@include username;
+				}
+			}
+			@include qualifier;
+			.td_cnt {
+				.text_holder {
+					@include text_holder;
+				}
+			}
+			.tr_info {
+				border-right: none;
+				border-bottom: none;
+				.td_info {
+					a {
+						// Unknown: 轉撲訊息?
+						color: $link-color;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* 河道左下方更新通知及右下音樂訊息 */
+@mixin updater-all {
+	font: ($text-size - 1) airal, sans-serif;
+	border: none !important;
+	background: none !important;
+}
+@mixin updater-box {
+	background: $dashboard-color !important;
+	padding: 3px;
+	@include opacity(0.8);
+	@include border-radius(5px);
+	@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+	&, span, .text {
+		color: $text-color-2;
+	}
+}
+#updater {
+	@include updater-all;
+	a {
+		@include updater-box;
+	}
+	#mark_all_link, #noti_np {
+		/* 「全部標為已讀」、「X 則新訊息」 */
+		margin-right: 5px !important;
+	}
+	#update_sepa {
+		/* 「X 則新訊息」與「X 則新回應」中間分隔線 */
+		padding: 0px;
+	}
+}
+#music_player, #unread_loader {
+	@include updater-all;
+	@include updater-box;
+}
+
+/*河道左右箭頭*/
+.browse_button {
+	@include opacity(0.7);
+	@include border-radius(10px);
+	@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+	.cmp_arrow_left {
+		background: white url($cmp-arrow-left-img) no-repeat;
+	}
+	.cmp_arrow_right {
+		background: white url($cmp-arrow-right-img) no-repeat;
+	}
+	.cmp_arrow_left, .cmp_arrow_right {
+		@include border-top-left-radius(10px);
+		@include border-top-right-radius(10px);
+	}
+	.cmp_back_to_today {
+		background: white url($cmp-back-to-today-img) no-repeat;
+		@include border-bottom-left-radius(10px);
+		@include border-bottom-right-radius(10px);
+	}
+	.cmp_arrow_left, .cmp_arrow_right, .cmp_back_to_today {
+		background-position: 50% 50%;
+		height: 32px;
+		width: 64px;
+	}
+}
+
+/* 河道下方「所有噗浪、我發表的訊息、…」分頁按鈕 */
+#filter_tab {
+	margin: 4px 20px 0px 0px;
+	.filter_selected, .off_tab {
+		border: 0 !important;
+		font: ($text-size - 1) tahoma;
+		line-height: 15px;
+		padding: 2px 5px !important;
+		@include border-bottom-right-radius(5px);
+		@include border-bottom-left-radius(5px);
+		@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+	}
+	.off_tab {
+		background: $dashboard-color !important;
+		color: $text-color-2;
+	}
+	.filter_selected {
+		background: $dashboard-color-2 !important;
+		color: $text-color;
+	}
+}
+
+// ==================================================
+/* 儀表盤 */
+#dashboard_holder {
+	margin: 30px auto 10px;
+	#toggle_tab {
+		/* 「Plurk、搜尋」標籤 */
+		font-family: "Microsoft JhengHei", Arial, sans-serif;
+		margin: 0px 0px 1px;
+		li {
+			color: $text-color;
+			background: $dashboard-color-2;
+			@include border-top-left-radius(8px);
+			@include border-top-right-radius(8px);
+			margin: 0px 8px -1px 0px;
+			&.tt_selected {
+				border: 0px;
+				background: $dashboard-color;
+				color: $text-color-2;
+			}
+		}
+	}
+	#plurk_form {
+		margin: 10px 0px;
+		.plurkaction { // #pane_plurk, #pane_search
+			background: $dashboard-color;
+			border: none;
+			@include border-radius(8px);
+			@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+		}
+		textarea#input_big, input#current_query {
+			/* 發噗、搜尋輸入框 */
+			border: none !important;
+			background: #FFFFFF;
+			font-size: 20px;
+			height: 1.8em;
+			@include border-radius(8px);
+			@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+		}
+		#pane_plurk { // Plurk
+			#main_poster {
+				.plurkForm {
+					margin-top: 0px; // 取消輸入框上方空白
+					.qual_holder {
+						/* 發噗自己名稱 */
+						color: $text-color;
+						font-family: "Microsoft JhengHei", Arial, sans-serif;
+						font-size: 18px;
+						@include qualifier;
+					}
+					.input_holder {
+						textarea#input_big {
+							&.content, &.multi-line {
+								/* 發噗輸入框 */
+								width: 98% !important;
+							}
+							&.multi-line {
+								height: 4em;
+							}
+						}
+					}
+					.submit_holder {
+						.cmp_plurk {
+							@include plurk-command;
+						}
+					}
+					.icon_holder {
+						#sync_checked_holder {
+							#sync_checked_form {
+								/* 同步發表訊息選項 */
+								background: $dashboard-color-2;
+								@include border-radius(8px);
+								a {
+									/* 未設置同步發表連結 */
+									color: $link-color !important;
+								}
+							}
+						}
+						#preview {
+							/* 網址預覽 */
+							@include border-radius(8px);
+						}
+					}
+					tr:last-child td {
+						/* 字數限制提醒 */
+						padding-top: 0;
+						#input_big_cu.char_highlight {
+							margin: 0 0 5px;
+							@include border-radius(8px);
+							@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+						}
+					}
+				}
+			}
+			#more_options { // 私人訊息及隱私選項
+				#option_tab {
+					a#more_options_link {
+						/* 「選項」連結，目前已不再使用 */
+						border: none;
+						color: $text-color-2 !important;
+						background: $dashboard-color;
+						font-family: tahoma, sans-serif;
+						font-size: ($text-size - 1);
+						padding: 3px 5px;
+					}
+					#more_options_holder {
+						background: $dashboard-color;
+						position: relative;
+						padding-bottom: 0px;
+						.holder {
+							.caption, .item {
+								color: $text-color;
+								font-family: tahoma, sans-serif;
+								font-size: ($text-size - 1);
+								line-height: 100%;
+							}
+							.item td {
+								background: none;
+								.auto_ta {
+									background: $dashboard-color;
+									border: none;
+									position: relative;
+									top: -2px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		#pane_search { // 搜尋
+			.main_poster {
+				.share_search {
+					#share_link {
+						/* 分享連結 */
+						margin-top: 6px;
+						@include border-radius(8px);
+						@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+					}
+				}
+				input.orange-but {
+					/* 「搜尋」 */
+					background: $page-background-color;
+					border: none;
+					color: $text-color !important;
+					@include border-radius(8px);
+					@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+				}
+				p.u_search {
+					/* 搜尋噗浪會員提示訊息 */
+					margin: 6px 0 0 !important;
+					a {
+						color: $text-color-2 !important;
+					}
+				}
+			}
+		}
+	}
+	#plurk-dashboard {
+		/* 個人資料 */
+		background: $dashboard-color;
+		border: 0px;
+		@include border-radius(8px);
+		@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+		.dash-segment {
+			background: $dashboard-color;
+			border: none;
+			font-family: verdana, sans-serif;
+			font-size: ($text-size - 1);
+			color: $text-color;
+			width: 33%;
+			@include border-radius(8px);
+			h2, h3 {
+				border-bottom: none;
+				@include text-shadow(rgba(0, 0, 0, 0.6) 1px 3px 8px);
+			}
+			a {
+				color: $text-color-2;
+				font-family: verdana, sans-serif;
+				&:hover {
+					color: $text-color-3;
+				}
+			}
+			#dash-profile {
+				#profile_pic {
+					/* 相片 */
+					border: 0px;
+					@include border-radius(20px);
+					@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+				}
+				#full_name {
+					/* 全名 */
+					color: $text-color;
+				}
+				#span_years, #m_or_f, #location {
+					/* 生日、性別、位置 */
+					color: $text-color-3;
+				}
+			}
+			#dash-additional-info {
+				/* 自我介紹 */
+				line-height: 110%;
+				#about_me a:hover {
+					color: $text-color-2;
+				}
+			}
+			#dash-stats {
+				/* 統計 */
+				h3 {
+					-webkit-box-reflect: below -3px -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(0.5, transparent), to(rgba(0, 0, 0, 0.2)));
+					.karma_hover {
+						#karma {
+							/* Karma */
+							color: $karma-color;
+							font-family: "Segoe UI", Arial, sans-serif;
+							@include text-shadow($karma-color 0 0 8px);
+						}
+						#karma_arrow {
+							/* 卡碼的箭頭 */
+							margin-right: 80px;
+						}
+					}
+				}
+				.help {
+					color: $text-color-2;
+				}
+				.cmp_points-arrow {
+					background-position-y: -518px;
+				}
+				table tr {
+					th {
+						color: $text-color;
+					}
+					td {
+						color: $text-color-2;
+					}
+				}
+				.award_bar img {
+					/* 徽章 */
+					@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+				}
+			}
+			#dash-friends, #dash-fans {
+				/* 朋友、粉絲 */
+				.friend_holder img {
+					@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+				}
+				.user_link {
+					background: $dashboard-color;
+				}
+			}
+			#dash-friends {
+				#dashboard-invite {
+					/* 「邀請或尋找更多朋友...」 */
+					border-radius: 8px;
+					text-decoration: none;
+				}
+			}
+			&.friendsList {
+				/* 隱藏粉絲列表 */
+				left: -9999px;
+				position: fixed;
+			}
+			.friend_man {
+				/* 加好友等按鈕 */
+				background: $page-background-color;
+				border: none;
+				color: $text-color !important;
+				@include border-radius(8px);
+				@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+			}
+		}
+	}
+}
+/* 表情選擇 */
+#emoticon_selecter {
+	@include box-shadow(1px 3px 20px rgba(0,0,0,0.5));
+	#emoticons_tabs {
+		&, li {
+			@include border-top-left-radius(8px);
+			@include border-top-right-radius(8px);
+		}
+		li {
+			background: none;
+			a {
+				font-size: 100% !important;
+			}
+		}
+	}
+	#emoticons_show {
+		@include border-radius(8px);
+	}
+}
+
+// ==================================================
+/* Copyright */
+#footer {
+	background: $dashboard-color;
+	padding: 5px 0px;
+	margin: 10px auto 20px;
+	@include border-radius(8px);
+	@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+	a {
+		color: $text-color;
+		font-size: ($text-size - 1);
+		line-height: 150%;
+	}
+	#languge_selector {
+		/* 切換語言 */
+		color: $text-color;
+		margin: 5px 0 0 10px;
+	}
+}
+
+// ==================================================
+/* 浮動訊息 */
+.AmiTT_main {
+	&, .tooltip_cnt {
+		min-width: 240px; // 最小寬度
+	}
+	&.AmiTT_left {
+		/* 上方小箭頭位置 */
+		background-position: 9% -1%;
+	}
+	.tooltip_cnt {
+		background: #526879;
+		padding: 5px;
+		@include border-radius(8px);
+		@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+	}
+}
+#info_overlay {
+	/* 發噗者名稱後方下拉選單按鈕位置 */
+	margin-left: -20px;
+	margin-top: 16px;
+}
+
+// ==================================================
+/* 嵌入視窗 */
+.GB_Window, .GB_Gallery .iframe_holder {
+	@include border-radius(8px);
+	@include box-shadow(0 0 20px rgba(0,0,0,0.5));
+	.header {
+		background: $GB-Window-color !important;
+		td.caption, .close {
+			background: none;
+		}
+	}
+	.header, .content {
+		border: 1px solid $GB-Window-color;
+	}
+}
+.GB_overlay {
+	/*背景漸層*/
+	@include background(radial-gradient(rgba(127, 127, 127, 0.5), rgba(127, 127, 127, 0.5) 35%, rgba(0, 0, 0, 0.5)));
+}
+
+// ==================================================
+/* 圖片 Color Box */
+#colorbox, #colorboxVideo {
+	@include border-radius(8px);
+	.cbox_right {
+		.plurk {
+			@include qualifier;
+			.content {
+				a {
+					color: $link-color;
+				}
+			}
+		}
+	}
+}
+
+// ==================================================
+/* 單噗頁面 */
+body.permaplurk {
+	#top_header {
+		/* 隱藏上方空白 */
+		left: -9999px;
+		position: fixed;
+	}
+	//首噗
+	.bigplurk .content {
+		background: #FDFDFD;
+		border: none;
+		@include border-radius(8px);
+		@include box-shadow(1px 3px 20px rgba(0,0,0,0.4));
+		.controls a {
+			&.delete_plurk {
+				/* 「刪除」連結 */
+				color: $mute-link-color;
+			}
+			&.like_plurk {
+				/* 「讚、收回讚」連結 */
+				color: $link-color;
+				&.unlike {
+					color: $unmute-link-color;
+				}
+			}
+		}
+	}
+	// 回噗
+	#dashboard_holder {
+		#plurk_responses {
+			h2 {
+				color: $text-color;
+				a {
+					color: $link-color !important;
+				}
+			}
+			.feed-link {
+				a, span, .cmp_fb {
+					text-indent: -9999px;
+					padding: 0;
+					margin: 0 !important;
+					background: transparent;
+					width: 0;
+					height: 0;
+				}
+			}
+			#reply {
+				ul.responses {
+					padding: 0 !important;
+					background: inherit !important;
+					border: none !important;
+					@include border-radius(8px);
+					@include box-shadow(1px 3px 20px rgba(0,0,0,0.4));
+					li {
+						border-bottom: none !important;
+						article {
+							.avatar {
+								margin: 2px 4px 0 4px;
+								img {
+									border: 1px solid #ccc;
+								}
+							}
+							.user .time .func {
+								/* 回噗的「回覆、刪除」連結 */
+								color: $link-color;
+							}
+							.message {
+								min-height: 20px;
+								width: 100%;
+								padding: 3px;
+							}
+							.highlight_owner {
+								/* 噗主回應 */
+								background: $highlight-owner !important;
+								@include border-radius(8px);
+							}
+						}
+					}
+				}
+				#reply_box_holder {
+					margin-top: 20px;
+					@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+					&, #reply_box {
+						background: #9EC0DA !important;
+						@include border-radius(8px);
+						border: none !important;
+					}
+					#reply_box {
+						.plurkForm {
+							.qual_holder {
+								/* 自己的名稱 */
+								color: $text-color !important;
+								font-family: "Microsoft JhengHei", Arial, sans-serif;
+								font-size: 18px;
+								@include qualifier;
+							}
+							.input_holder {
+								textarea#input_big {
+									border: none !important;
+									background: #FFFFFF;
+									font-size: 20px;
+									@include border-radius(8px);
+									height: 1.8em;
+								}
+							}
+							.submit_holder {
+								.cmp_plurk {
+									@include plurk-command;
+								}
+							}
+						}
+					}
+				}
+				#not_logged_in {
+					/* 未登入回應 */
+					@include border-radius(8px);
+				}
+			}
+		}
+		#plurker_info {
+			#shareUser {
+				border: none !important;
+				@include border-radius(8px);
+				@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+			}
+			#plurkSetting {
+				/* 誰可以回覆這則噗？ */
+				@include border-radius(8px);
+				@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+				fieldset.switch .switch-button {
+					top: auto;
+				}
+			}
+		}
+	}
+	// 首噗、回噗 共用樣式
+	.bigplurk .content, #dashboard_holder #plurk_responses #reply .responses li article {
+		font: $text-size verdana;
+		.avatar img {
+			@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+		}
+		.user .user-nick {
+			@include username;
+		}
+		@include qualifier;
+		.plurk_content {
+			@include text_holder;
+		}
+	}
+}
+
+
+
+// ==================================================
+/* 動態的噗浪開始 */
+
+/* 左右搖擺 */
+@-webkit-keyframes loadingAnimation {
+	from {
+		-webkit-transform:rotate(-5deg);
+		-webkit-transform-origin: 50% 50%;
+	}
+	50% {
+		-webkit-transform:rotate(5deg);
+	}
+	to {
+		-webkit-transform:rotate(-5deg);
+	}
+}
+@-moz-keyframes loadingAnimation {
+	from {
+		-moz-transform:rotate(-5deg);
+		-moz-transform-origin: 50% 50%;
+	}
+	50% {
+		-moz-transform:rotate(5deg);
+	}
+	to {
+		-moz-transform:rotate(-5deg);
+	}
+}
+/* 讀取圖片 */
+/*
+.loading {
+	-webkit-animation: loadingAnimation 0.5s linear infinite;
+	-moz-animation: loadingAnimation 0.5s linear infinite;
+}
+*/
+
+/* 淡入至透明度70% */
+@-webkit-keyframes fadeIn7 {
+	from {opacity:0;}
+	to {@include opacity(0.7);}
+}
+@-moz-keyframes fadeIn7 {
+	from {opacity:0;}
+	to {@include opacity(0.7);}
+}
+@keyframes 'fadeIn7' {
+	from {opacity:0;}
+	to {@include opacity(0.7);}
+}
+/* 回應時間標籤 */
+/*
+.response_time {
+	-webkit-transition: opacity 0.2s linear;
+	-moz-transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
+	-webkit-animation: fadeIn7 0.2s linear;
+	-moz-animation: fadeIn7 0.2s linear;
+	animation: 'fadeIn7' 0.2s linear;
+}
+*/
+/* 河道底部時間標籤, 河道向左箭頭, 浮動訊息 */
+/*
+#time_show, .browse_button, .AmiTT_main {
+	-webkit-animation: fadeIn7 0.2s linear;
+	-moz-animation: fadeIn7 0.2s linear;
+	animation: 'fadeIn7' 0.2s linear;
+}
+*/
+
+/* 河道上的噗 */
+/*
+#timeline_holder .plurk_cnt, #timeline_holder div.plurk .dots .inner, #timeline_holder div.plurk .p_img img, #timeline_holder div.plurk .response_count {
+	-webkit-transition: box-shadow 0.5s linear;
+	-moz-transition: box-shadow 0.5s linear;
+	transition: box-shadow 0.5s linear;
+}
+#timeline_holder div.link_extend .plurk_cnt, #timeline_holder div.link_extend .p_img img, #timeline_holder div.link_extend .response_count {
+	-webkit-transition: box-shadow 0.2s linear;
+	-moz-transition: box-shadow 0.2s linear;
+	transition: box-shadow 0.2s linear;
+}
+#timeline_holder div.plurk_box .plurk_cnt, #timeline_holder div.plurk_box .p_img img, #timeline_holder div.plurk_box .response_count, .bigplurk .content, #plurk_responses ul.responses {
+	-webkit-transition: box-shadow 0.2s linear;
+	-moz-transition: box-shadow 0.2s linear;
+	transition: box-shadow 0.2s linear;
+}
+#timeline_holder .plurk_cnt, #timeline_holder div.plurk .dots .inner, #timeline_holder div.plurk .p_img img {
+	-webkit-transition: box-shadow 0.5s linear, background 0.5s linear, opacity 0.2s linear;
+	-moz-transition: box-shadow 0.5s linear, background 0.5s linear, opacity 0.2s linear;
+	transition: box-shadow 0.5s linear, background 0.5s linear, opacity 0.2s linear;
+}
+#timeline_holder div.link_extend .plurk_cnt, #timeline_holder div.link_extend .p_img img {
+	-webkit-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
+	-moz-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
+	transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
+}
+#timeline_holder div.plurk_box .plurk_cnt, #timeline_holder div.plurk_box .p_img img {
+	-webkit-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
+	-moz-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
+	transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
+}
+#timeline_holder div.muted {
+	-webkit-transition: opacity 0.2s linear;
+	-moz-transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
+}
+*/
+
+/* 背景紅色閃爍 */
+@-webkit-keyframes alert_beacon {
+	from {
+		background-color: #f00;
+	}
+	50% {
+		background-color: inherit;
+	}
+	to {
+		background-color: #f00;
+	}
+}
+@-moz-keyframes alert_beacon {
+	from {
+		background-color: #f00;
+	}
+	50% {
+		background-color: inherit;
+	}
+	to {
+		background-color: #f00;
+	}
+}
+@keyframes 'alert_beacon' {
+	from {
+		background-color: #f00;
+	}
+	50% {
+		background-color: inherit;
+	}
+	to {
+		background-color: #f00;
+	}
+}
+/* 通知 */
+/*
+.unread #alert_beacon, .unread_generic {
+	-webkit-animation: alert_beacon 1s linear infinite;
+	-moz-animation: alert_beacon 1s linear infinite;
+	animation: 'alert_beacon' 1s linear infinite;
+}
+*/
+
+/* 變化陰影深淺 */
+@-webkit-keyframes shadow_fadeinout {
+	from {
+		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+	}
+	50% {
+		-webkit-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
+		box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
+	}
+	to {
+		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+	}
+}
+@-moz-keyframes shadow_fadeinout {
+	from {
+		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+	}
+	50% {
+		-moz-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
+		box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
+	}
+	to {
+		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+	}
+}
+@keyframes 'shadow_fadeinout' {
+	from {
+		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+	}
+	50% {
+		-webkit-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
+		-moz-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
+		box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
+	}
+	to {
+		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
+	}
+}
+/*
+#updater a {
+	-webkit-animation: shadow_fadeinout 1s linear infinite;
+	-moz-animation: shadow_fadeinout 1s linear infinite;
+	animation: 'shadow_fadeinout' 1s linear infinite;
+}
+#filter_tab .filter_selected, #timeline_holder div.new .plurk_cnt {
+	-webkit-animation: shadow_fadeinout 1s linear 3;
+	-moz-animation: shadow_fadeinout 1s linear 3;
+	animation: 'shadow_fadeinout' 1s linear 3;
+}
+#timeline_holder div.new.link_extend .plurk_cnt, #timeline_holder div.new.plurk_box .plurk_cnt {
+	-webkit-animation-play-state: paused;
+	-moz-animation-play-state: paused;
+	animation-play-state: paused;
+}
+*/
+
+/* 動態的噗浪結束 */
+// ==================================================
+
+
+
+/* 去廣告 */
+div .adsense {
+	/* 隱藏單則訊息廣告區 */
+	height: 0 !important;
+	width: 0 !important;
+	overflow: hidden;
+	opacity: 0 !important;
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0) !important;
+	zoom: 1;
+}
+#plurk_ads {
+	left: -9999px;
+	border: 0px;
+}
+#resp_banner_ads {
+	height: 0 !important;
+}
+
+/* PlurkCustoms */
+.candidate {
+	width: 98% !important;
+	@include box-shadow(1px 3px 8px rgba(0,0,0,0.3));
+}
+.candidate, .candidate *,
+#emoticons_show table td,
+#emo-manager .emo-public-pool,
+body #emoticon_selecter #emoticons_show table.flexible td,
+.plurk.muted:not(.display),
+.emoticon_my.new {
+	@include transition(none !important);
+	-webkit-animation: none !important;
+}
+.mini_form td {
+	margin: 3px 3px !important;
+}
+#input_small {
+	min-height: 0 !important;
+	width: 97% !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+}
+.emoticon_my.new,
+.emoticon_my.new:hover {
+	position: static !important;
+	outline: none !important;
+	z-index: auto !important;
+	@include box-shadow(none !important);
+}
+
+/* Plurk-HoverZoom */
+#hoverzoom-left, #hoverzoom-right {
+	background-color: white !important;
+	padding: 2px !important;
+	border: 1px solid #C4C4C4 !important;
+	margin-top: 2px !important;
+	@include border-radius(2px !important);
+	@include box-shadow(0 0 20px rgba(0,0,0,0.5) !important);
+}
+
+
