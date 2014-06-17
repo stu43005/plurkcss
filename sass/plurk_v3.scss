@@ -4,6 +4,7 @@
 
 $page-background: "https://mail.google.com/mail/images/2/5/tree/mostlycloudy/header_tile.jpg";
 $page-background-color: #CDE4F3;
+$topbar-background: "";
 $loading-img: "http://images.plurk.com/4428665_1dc2f639db36d8b6b820ce929608b64e.gif";
 $cmp-plruk-img: "http://dl.dropbox.com/u/4211700/chrome/plurk_command.png";
 $cmp-plruk-img2: "http://dl.dropbox.com/u/4211700/chrome/plurk_command2.png";
@@ -192,20 +193,34 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 	}
 }
 
+%hidden {
+	//display: none !important;
+	position: fixed !important;
+	left: -9999px !important;
+}
+
 // ==================================================
 
-body {
+html, body {
 	background: $page-background-color url($page-background) repeat-x;
 	font-size: $text-size;
 	font-family: sans-serif;
-	overflow: hidden;
+	//overflow: hidden;
 }
 
 // ==================================================
 /* 河道 */
 #timeline_holder {
+	$topbar-height: 42px;
+	$timeline-height: 386px + $topbar-height;
+
 	background: none;
 	border: none;
+	margin-top: ($topbar-height * -1);
+	padding-top: $topbar-height !important;
+	height: $timeline-height !important;
+	background: url($topbar-background) repeat-x;
+	//background-size: 3000px $topbar-height;
 	#div_loading .cnt .cmp_loading,
 	#timeline_bg .loading_div .cmp_loading {
 		/* 主頁面loading圖 */
@@ -382,12 +397,12 @@ body {
 
 			&[data-uid="99999"] {
 				/* 匿名噗 */
-				//left: -9999px !important;
+				//@extend %hidden;
 			}
 
 			&.banana_plurk {
 				/* 贊助噗 */
-				left: -9999px !important;
+				@extend %hidden;
 			}
 		}
 	}
@@ -428,7 +443,6 @@ body {
 	@at-root {
 		#time_show {
 			/* 河道下的發噗時間顯示 */
-			margin-top: -16px;
 			@include border-top-left-radius(5px);
 			@include border-top-right-radius(5px);
 			span {
@@ -465,6 +479,12 @@ body {
 		}
 
 		/* 河道左下方更新通知及右下音樂訊息 */
+		$updater-interval: 10px;
+		$updater-height: 23px;
+		$updater-top: $timeline-height + $updater-interval + 2px;
+		$updater-left: 16px;
+		$musicplayer-top: $updater-top + $updater-height + $updater-interval;
+
 		@mixin updater-box {
 			@extend %goog-flat-menu-button;
 			padding: 3px 6px;
@@ -473,22 +493,20 @@ body {
 			font-size: ($text-size - 1);
 			border: none !important;
 			background: none !important;
-			top: 396px;
+			top: $updater-top;
+			left: $updater-left;
+			padding: 0;
 			a {
 				@include updater-box;
 			}
-			#mark_all_link, #noti_np {
-				/* 「全部標為已讀」、「X 則新訊息」 */
-				margin-right: 5px !important;
-			}
 			#mark_all_link {
 				/* 隱藏「全部標為已讀」 */
-				position: fixed;
-				left: -9999px;
+				@extend %hidden;
 			}
 			#update_sepa {
-				/* 「X 則新訊息」與「X 則新回應」中間分隔線 */
-				padding: 0px;
+				/* 中間分隔線 */
+				width: $updater-interval;
+				background: none;
 			}
 		}
 		#music_player, #unread_loader {
@@ -502,9 +520,33 @@ body {
 			}
 		}
 		#music_player {
-			top: 418px !important;
+			/* 音樂撥放器 */
+			// 改為放在更新通知底下
+			top: $musicplayer-top !important;
 			right: auto !important;
-			left: 15px !important;
+			left: $updater-left !important;
+		}
+
+		/* 河道下方「所有噗浪、我發表的訊息、…」分頁按鈕 */
+		$filtertab-margin-top: $updater-top - $timeline-height;
+
+		#filter_tab {
+			margin: $filtertab-margin-top 20px 0px 0px;
+			.filter_selected, .off_tab {
+				@extend %jfk-button;
+			}
+			#all_plurks, #own_plurks_tab_btn, #private_plurks_tab_btn, #responded_plurks_tab_btn {
+				@extend %jfk-button-collapse-right;
+			}
+			#own_plurks_tab_btn, #private_plurks_tab_btn, #responded_plurks_tab_btn, #favorite_plurks_tab_btn {
+				@extend %jfk-button-collapse-left;
+			}
+			.off_tab {
+				@extend %jfk-button-standard;
+			}
+			.filter_selected {
+				@extend %jfk-button-checked;
+			}
 		}
 	}
 }
@@ -623,26 +665,6 @@ body {
 		/* 回噗欄下方圓角 */
 		@include border-bottom-right-radius(5px);
 		@include border-bottom-left-radius(5px);
-	}
-}
-
-/* 河道下方「所有噗浪、我發表的訊息、…」分頁按鈕 */
-#filter_tab {
-	margin: 12px 20px 0px 0px;
-	.filter_selected, .off_tab {
-		@extend %jfk-button;
-	}
-	#all_plurks, #own_plurks_tab_btn, #private_plurks_tab_btn, #responded_plurks_tab_btn {
-		@extend %jfk-button-collapse-right;
-	}
-	#own_plurks_tab_btn, #private_plurks_tab_btn, #responded_plurks_tab_btn, #favorite_plurks_tab_btn {
-		@extend %jfk-button-collapse-left;
-	}
-	.off_tab {
-		@extend %jfk-button-standard;
-	}
-	.filter_selected {
-		@extend %jfk-button-checked;
 	}
 }
 
@@ -936,6 +958,7 @@ body {
 			//<= 分隔線
 
 			h2, h3 {
+				color: $text-color !important;
 				background: transparent;
 				border-bottom: 0;
 				margin-left: 15px;
@@ -943,31 +966,40 @@ body {
 			}
 			a {
 				color: $text-color-2;
+				text-decoration: none;
 				&:hover {
 					color: $text-color-3;
+					text-decoration: underline;
 				}
 			}
-			#dash-profile {
-				#profile_pic {
-					/* 相片 */
-					border: 0px;
-					@include border-radius(20px);
-					@include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+			&.dash-segment-profile {
+				#dash-profile {
+					#profile_pic {
+						/* 相片 */
+						border: 0px;
+						@include border-radius(20px);
+						@include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+					}
+					#full_name {
+						/* 全名 */
+						color: $text-color;
+					}
+					#span_years, #m_or_f, #location {
+						/* 生日、性別、位置 */
+						color: $text-color-3;
+					}
 				}
-				#full_name {
-					/* 全名 */
-					color: $text-color;
-				}
-				#span_years, #m_or_f, #location {
-					/* 生日、性別、位置 */
-					color: $text-color-3;
-				}
-			}
-			#dash-additional-info {
-				/* 自我介紹 */
-				line-height: 110%;
-				#about_me a:hover {
-					color: $text-color-2;
+				#dash-additional-info {
+					/* 自我介紹 */
+					line-height: 110%;
+					a {
+						color: $link-color;
+						text-decoration: none;
+						&:hover {
+							color: $link-color;
+							text-decoration: underline;
+						}
+					}
 				}
 			}
 			#dash-stats {
@@ -999,9 +1031,11 @@ body {
 				table tr {
 					th {
 						color: $text-color;
+						text-align: right;
 					}
 					td {
 						color: $text-color-2;
+						text-align: left;
 					}
 				}
 				.award_bar {
@@ -1039,8 +1073,7 @@ body {
 				border-right: 0;
 			}
 			&.dash-segment-fans {
-				left: -9999px;
-				position: fixed;
+				@extend %hidden;
 			}
 			//<= 隱藏粉絲列表
 
@@ -1074,7 +1107,7 @@ body {
 /* 右下角廣告 */
 #sliderAds {
 	&, &.in {
-		right: -9999px !important;
+		@extend %hidden;
 		background-color: transparent;
 	}
 }
@@ -1178,8 +1211,7 @@ body {
 		}
 		.cbox_ads {
 			/* 隱藏廣告 */
-			position: fixed;
-			left: -9999px;
+			@extend %hidden;
 		}
 	}
 }
@@ -1189,8 +1221,7 @@ body {
 #permanent_body {
 	#top_header {
 		/* 隱藏上方空白 */
-		left: -9999px;
-		position: fixed;
+		@extend %hidden;
 	}
 	//首噗
 	#timeline_holder .bigplurk .content {
@@ -1326,226 +1357,6 @@ body {
 
 
 
-// ==================================================
-/* 動態的噗浪開始 */
-
-/* 左右搖擺 */
-/*@-webkit-keyframes loadingAnimation {
-	from {
-		-webkit-transform:rotate(-5deg);
-		-webkit-transform-origin: 50% 50%;
-	}
-	50% {
-		-webkit-transform:rotate(5deg);
-	}
-	to {
-		-webkit-transform:rotate(-5deg);
-	}
-}
-@-moz-keyframes loadingAnimation {
-	from {
-		-moz-transform:rotate(-5deg);
-		-moz-transform-origin: 50% 50%;
-	}
-	50% {
-		-moz-transform:rotate(5deg);
-	}
-	to {
-		-moz-transform:rotate(-5deg);
-	}
-}*/
-/* 讀取圖片 */
-/*
-.loading {
-	-webkit-animation: loadingAnimation 0.5s linear infinite;
-	-moz-animation: loadingAnimation 0.5s linear infinite;
-}
-*/
-
-/* 淡入至透明度70% */
-/*@-webkit-keyframes fadeIn7 {
-	from {opacity:0;}
-	to {@include opacity(0.7);}
-}
-@-moz-keyframes fadeIn7 {
-	from {opacity:0;}
-	to {@include opacity(0.7);}
-}
-@keyframes 'fadeIn7' {
-	from {opacity:0;}
-	to {@include opacity(0.7);}
-}*/
-/* 回應時間標籤 */
-/*
-.response_time {
-	-webkit-transition: opacity 0.2s linear;
-	-moz-transition: opacity 0.2s linear;
-	transition: opacity 0.2s linear;
-	-webkit-animation: fadeIn7 0.2s linear;
-	-moz-animation: fadeIn7 0.2s linear;
-	animation: 'fadeIn7' 0.2s linear;
-}
-*/
-/* 河道底部時間標籤, 河道向左箭頭, 浮動訊息 */
-/*
-#time_show, .browse_button, .AmiTT_main {
-	-webkit-animation: fadeIn7 0.2s linear;
-	-moz-animation: fadeIn7 0.2s linear;
-	animation: 'fadeIn7' 0.2s linear;
-}
-*/
-
-/* 河道上的噗 */
-/*
-#timeline_holder .plurk_cnt, #timeline_holder div.plurk .dots .inner, #timeline_holder div.plurk .p_img img, #timeline_holder div.plurk .response_count {
-	-webkit-transition: box-shadow 0.5s linear;
-	-moz-transition: box-shadow 0.5s linear;
-	transition: box-shadow 0.5s linear;
-}
-#timeline_holder div.link_extend .plurk_cnt, #timeline_holder div.link_extend .p_img img, #timeline_holder div.link_extend .response_count {
-	-webkit-transition: box-shadow 0.2s linear;
-	-moz-transition: box-shadow 0.2s linear;
-	transition: box-shadow 0.2s linear;
-}
-#timeline_holder div.plurk_box .plurk_cnt, #timeline_holder div.plurk_box .p_img img, #timeline_holder div.plurk_box .response_count, .bigplurk .content, #plurk_responses ul.responses {
-	-webkit-transition: box-shadow 0.2s linear;
-	-moz-transition: box-shadow 0.2s linear;
-	transition: box-shadow 0.2s linear;
-}
-#timeline_holder .plurk_cnt, #timeline_holder div.plurk .dots .inner, #timeline_holder div.plurk .p_img img {
-	-webkit-transition: box-shadow 0.5s linear, background 0.5s linear, opacity 0.2s linear;
-	-moz-transition: box-shadow 0.5s linear, background 0.5s linear, opacity 0.2s linear;
-	transition: box-shadow 0.5s linear, background 0.5s linear, opacity 0.2s linear;
-}
-#timeline_holder div.link_extend .plurk_cnt, #timeline_holder div.link_extend .p_img img {
-	-webkit-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
-	-moz-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
-	transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
-}
-#timeline_holder div.plurk_box .plurk_cnt, #timeline_holder div.plurk_box .p_img img {
-	-webkit-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
-	-moz-transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
-	transition: box-shadow 0.2s linear, background 0.2s linear, opacity 0.2s linear;
-}
-#timeline_holder div.muted {
-	-webkit-transition: opacity 0.2s linear;
-	-moz-transition: opacity 0.2s linear;
-	transition: opacity 0.2s linear;
-}
-*/
-
-/* 背景紅色閃爍 */
-/*@-webkit-keyframes alert_beacon {
-	from {
-		background-color: #f00;
-	}
-	50% {
-		background-color: inherit;
-	}
-	to {
-		background-color: #f00;
-	}
-}
-@-moz-keyframes alert_beacon {
-	from {
-		background-color: #f00;
-	}
-	50% {
-		background-color: inherit;
-	}
-	to {
-		background-color: #f00;
-	}
-}
-@keyframes 'alert_beacon' {
-	from {
-		background-color: #f00;
-	}
-	50% {
-		background-color: inherit;
-	}
-	to {
-		background-color: #f00;
-	}
-}*/
-/* 通知 */
-/*
-.unread #alert_beacon, .unread_generic {
-	-webkit-animation: alert_beacon 1s linear infinite;
-	-moz-animation: alert_beacon 1s linear infinite;
-	animation: 'alert_beacon' 1s linear infinite;
-}
-*/
-
-/* 變化陰影深淺 */
-/*@-webkit-keyframes shadow_fadeinout {
-	from {
-		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-	}
-	50% {
-		-webkit-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
-		box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
-	}
-	to {
-		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-	}
-}
-@-moz-keyframes shadow_fadeinout {
-	from {
-		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-	}
-	50% {
-		-moz-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
-		box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
-	}
-	to {
-		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-	}
-}
-@keyframes 'shadow_fadeinout' {
-	from {
-		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-	}
-	50% {
-		-webkit-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
-		-moz-box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
-		box-shadow: 1px 3px 20px rgba(0,0,0,0.6);
-	}
-	to {
-		-webkit-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		-moz-box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-		box-shadow: 1px 3px 8px rgba(0,0,0,0.4);
-	}
-}*/
-/*
-#updater a {
-	-webkit-animation: shadow_fadeinout 1s linear infinite;
-	-moz-animation: shadow_fadeinout 1s linear infinite;
-	animation: 'shadow_fadeinout' 1s linear infinite;
-}
-#filter_tab .filter_selected, #timeline_holder div.new .plurk_cnt {
-	-webkit-animation: shadow_fadeinout 1s linear 3;
-	-moz-animation: shadow_fadeinout 1s linear 3;
-	animation: 'shadow_fadeinout' 1s linear 3;
-}
-#timeline_holder div.new.link_extend .plurk_cnt, #timeline_holder div.new.plurk_box .plurk_cnt {
-	-webkit-animation-play-state: paused;
-	-moz-animation-play-state: paused;
-	animation-play-state: paused;
-}
-*/
-
-/* 動態的噗浪結束 */
-// ==================================================
-
-
-
 /* 去廣告 */
 div .adsense {
 	/* 隱藏單則訊息廣告區 */
@@ -1557,7 +1368,7 @@ div .adsense {
 	zoom: 1;
 }
 #plurk_ads {
-	left: -9999px;
+	@extend %hidden;
 	border: 0px;
 }
 #resp_banner_ads {
