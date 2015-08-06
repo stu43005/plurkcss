@@ -572,7 +572,7 @@ html, body {
 		.loading {
 			/* 每一則噗中的loading圖 */
 			background: transparent url($loading-img) no-repeat scroll center center !important;
-			background-size: contain !important;
+			background-size: 50% !important;
 			width: calc(100% - 10px) !important;
 			height: 100% !important;
 			img {
