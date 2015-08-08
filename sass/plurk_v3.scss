@@ -571,10 +571,11 @@ html, body {
 		border-right: none;
 		.loading {
 			/* 每一則噗中的loading圖 */
-			background: transparent url($loading-img) no-repeat scroll center center !important;
-			background-size: 50% !important;
 			width: calc(100% - 10px) !important;
 			height: 100% !important;
+			background: rgba(0,0,0,0.2) !important;
+			-webkit-mask: url($loading-img) no-repeat center;
+			-webkit-mask-size: 50%;
 			img {
 				height: 0;
 				width: 0;
