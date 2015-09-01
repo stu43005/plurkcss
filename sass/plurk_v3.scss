@@ -2,16 +2,15 @@
 @import "google";
 @charset "UTF-8";
 
-$page-background: "https://dl.dropboxusercontent.com/u/4211700/chrome/header_tile.jpg";
+$page-background: "https://i.imgur.com/IQ7hPYQ.jpg";
 $page-background-color: #CDE4F3;
 $topbar-background: "";
-$loading-img: "https://dl.dropboxusercontent.com/u/4211700/chrome/plurk_loading.png";
-$cmp-plruk-img: "https://dl.dropbox.com/u/4211700/chrome/plurk_command.png";
-$cmp-plruk-img2: "https://dl.dropbox.com/u/4211700/chrome/plurk_command2.png";
+$loading-img: "https://i.imgur.com/TdDr6R8.png";
+$cmp-plruk-img: "https://i.imgur.com/rgVAlV7.png";
 $cmp-plruk-color: #80AAFF;
-$cmp-arrow-left-img: "https://dl.dropbox.com/u/4211700/chrome/be_rw.gif";
-$cmp-arrow-right-img: "https://dl.dropbox.com/u/4211700/chrome/be_ff.gif";
-$cmp-back-to-today-img: "https://dl.dropbox.com/u/4211700/chrome/be_bs.gif";
+$cmp-arrow-left-img: "https://i.imgur.com/1I0PFHg.gif";
+$cmp-arrow-right-img: "https://i.imgur.com/Dr4WUxI.gif";
+$cmp-back-to-today-img: "https://i.imgur.com/lv9gcO0.gif";
 $text-color: #333333;
 $text-color-2: #000000;
 $text-color-3: #555555;
@@ -96,7 +95,7 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 	background-image: -o-linear-gradient(top,#4D90FE,#4787ED);
 	background-image: linear-gradient(top,#4D90FE,#4787ED);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#4d90fe',EndColorStr='#4787ed');
-	-webkit-mask-box-image: url($cmp-plruk-img2);
+	-webkit-mask-box-image: url($cmp-plruk-img);
 	border: 1px solid #3079ED;
 	color: #FFF!important;
 	margin: 0 0;
