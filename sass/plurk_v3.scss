@@ -568,6 +568,8 @@ html, body {
 		padding-top: 0px !important;
 		min-height: 250px;
 		border-right: none;
+		// 週末長知識: scrollable 的捲動重繪問題 http://pymaster.logdown.com/post/344574
+		will-change: transform;
 		.loading {
 			/* 每一則噗中的loading圖 */
 			width: calc(100% - 10px) !important;
