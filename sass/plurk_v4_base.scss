@@ -1,0 +1,632 @@
+@charset "UTF-8";
+
+$uid: ''; // 你的uid
+
+// ==================================================
+
+%username {
+	/* 使用者名稱 */
+}
+
+%qualifier {
+	.qualifier, .m_qualifier, .r_qualifier {
+		/* 噗浪類型標籤 */
+	}
+	.qual_embedded {
+		/* 轉撲內文標籤 */
+	}
+}
+
+%plurk_input_qualifier { // .qual_holder
+	@extend %qualifier;
+	.dd_img {
+		/* 發噗類型選擇 */
+	}
+}
+
+%plurk_form { // .plurkForm
+	/* 發噗回噗表單 */
+	.drop_indicator {
+		/* 拖放圖片到此上傳 */
+	}
+	.submit_img {
+		/* 發噗按鈕 */
+		@extend %plurk_command;
+	}
+	.input_holder {
+		.qual_holder {
+			/* 發噗動詞選擇按鈕 */
+			@extend %plurk_input_qualifier;
+		}
+		.textarea_holder {
+			textarea.content {
+				/* 發噗輸入框 */
+				@extend %plurk_input;
+			}
+		}
+		.share_holder {
+			.share_list {
+				/* 分享圖片列表 */
+				ul {
+					li {
+						/* 各分享圖片 */
+						&.add_photo {
+							/* 增加圖片按鈕「+」 */
+						}
+						img.ico {
+							/* 圖片右上角icon */
+						}
+					}
+				}
+			}
+		}
+	}
+	.char_updater {
+		/* 字太多囉 */
+	}
+}
+
+%plurk_input { // textarea
+	/* Plurk 輸入框 */
+}
+
+%plurk_command {
+	/* 「Plurk」按鈕 */
+}
+
+%plurk_content {
+	/* 河道噗文、回噗 共用樣式 */
+	.td_qual {
+		@extend %qualifier;
+		a.name {
+			@extend %username;
+		}
+	}
+	.td_cnt {
+		.text_holder {
+			@extend %plurk_text_holder;
+		}
+	}
+}
+
+%plurk_text_holder {
+	/* 噗浪內文字型 */
+	a {
+		&.ex_link {
+			/* 外部連結 */
+		}
+		&.pictureservices {
+			img {
+				/* 圖片 */
+			}
+		}
+		&.hashtag {
+			/* Hashtag */
+		}
+	}
+}
+
+%hidden {
+	/* 隱藏物件 */
+	// display: none !important;
+	position: fixed !important;
+	left: -9999px !important;
+}
+
+// ==================================================
+
+html { // #layout_content_html
+	body { // #layout_content
+		
+		// ==================================================
+		/* 河道 */
+		#timeline_holder {
+			#div_loading {
+				.cnt {
+					img {
+						/* 河道loading圖 */
+					}
+				}
+			}
+			#timeline_cnt {
+				#empty_timeline_bg {
+					/* 「沒有任何未讀訊息了」、「此時間軸目前設為私密狀態。」背景字 */
+				}
+				#empty_timeline_fg {
+					/* 「沒有任何未讀訊息了」、「此時間軸目前設為私密狀態。」前景字 */
+				}
+
+				.block_cnt {
+					&.day_start {
+					}
+					&.hh_mm {
+					}
+
+					.div_one_line {
+					}
+					.div_inner {
+					}
+					.div_bottom {
+					}
+
+					.plurk {
+						&.display {
+						}
+						&.link_extend {
+						}
+						&.plurk_box {
+							/* 已展開該噗 */
+						}
+						&.muted {
+							/* 已被消音 */
+						}
+
+						&[data-uid='#{$uid}'] {
+							/* 你的噗 */
+						}
+
+						&[data-uid='99999'] {
+							/* 匿名噗 */
+						}
+
+						&.banana_plurk {
+							/* 贊助噗 */
+							@extend %hidden;
+						}
+
+						.td_img {
+							.p_img {
+								img {
+									/* 發噗者頭像 */
+								}
+							}
+						}
+
+						.plurk_cnt {
+							@extend %plurk_content;
+							
+							.td_cnt {
+								.manager {
+									/* 河道噗控制項 */
+									.mute-on {
+										/* 消音 */
+									}
+									.mute-off {
+										/* 未消音 */
+									}
+									.promote {
+										/* 推文 */
+									}
+									.replurk-on {
+										/* 已轉噗 */
+									}
+									.replurk-off {
+										/* 未轉噗 */
+									}
+									.like-on {
+										/* 已喜歡 */
+									}
+									.like-off {
+										/* 未喜歡 */
+									}
+								}
+							}
+							.tr_info {
+								.td_info {
+								}
+							}
+						}
+
+						.td_response_count {
+							a {
+								.response_count {
+									/* 回噗數 */
+								}
+							}
+						}
+
+					}
+				}
+			}
+
+			#timeline_bg {
+				#bottom_line {
+					/* 河道底部白線 */
+				}
+				.block_bg {
+					&.day_start {
+						.day_bg {
+						}
+					}
+					&.hh_mm {
+					}
+
+					.div_one_line {
+					}
+					.div_inner {
+					}
+					.div_bottom {
+						.bottom_start {
+							/* 噗文時間 */
+							@at-root #time_show {
+								/* 詳細時間顯示 */
+								&.evening, &.night, &.day, &.morning {
+									/* 各時間樣式 */
+								}
+							}
+						}
+					}
+				}
+			}
+
+			#dynamic_logo {
+				img.creature {
+					/* 噗浪獸 */
+				}
+			}
+		}
+
+		.browse_button {
+			.cmp_arrow_left {
+				/* 河道向左捲動 */
+			}
+			.cmp_arrow_right {
+				/* 河道向右捲動 */
+			}
+			.cmp_back_to_today {
+				/* 河道回到最前面 */
+			}
+		}
+
+		// ==================================================
+		/* 回噗區塊 */
+		#form_holder.plurk_box {
+			.response_box {
+				.favorite_count {
+					/* 喜歡數量 */
+				}
+				.replurk_count {
+					/* 轉噗數量 */
+				}
+				.list {
+					/* 回噗列表 */
+					.loading {
+						img {
+							/* 回噗的loading圖 */
+						}
+					}
+					.plurk {
+						&.highlight_owner {
+							/* 噗主回應 */
+						}
+						&[data-uid='#{$uid}'] {
+							/* 自己回應 */
+						}
+
+						.plurk_cnt {
+							@extend %plurk_content;
+						}
+					}
+				}
+			}
+			.new_response_hint {
+				/* 有新回應 */
+			}
+			.mini_form {
+				.plurkForm {
+					@extend %plurk_form;
+
+					.icons_holder {
+						.cmp_emoticon_mini_on {}
+						.cmp_emoticon_mini_off {}
+						.cmp_media_mini_on {}
+						.cmp_media_mini_off {}
+					}
+				}
+			}
+			.info_box {
+				/* 「回應功能已關閉」、「僅限朋友回應」等訊息 */
+				&.controller {
+					/* 回噗下方控制連結 */
+					.perma_link {
+						a {
+							/* 訊息網址 */
+						}
+					}
+					.report_link {
+						a {
+							/* 回報濫用 */
+						}
+					}
+					.limited_box {
+						/* 私人訊息給 */
+						a.name {
+							@extend %username;
+						}
+					}
+				}
+			}
+			#resp_banner_ads {
+				@extend %hidden;
+			}
+		}
+
+		// ==================================================
+		/* 河道控制項 */
+		#timeline_control {
+			#timeline_control_holder {
+				#filter_tab {
+					.filter_selected {
+						/* 已選擇 */
+					}
+					.off_tab {
+						/* 未選擇 */
+					}
+					#all_plurks, #own_plurks_tab_btn, #private_plurks_tab_btn, #responded_plurks_tab_btn, #favorite_plurks_tab_btn {
+						/* 各河道選項 */
+					}
+				}
+
+				#updater {
+					#noti_np.item {
+						#noti_np_text.text {
+							/* 新訊息 */
+						}
+					}
+					#noti_re.item {
+						#noti_re_view.item {
+							#noti_re_text.text {
+								/* 新回應 */
+							}
+						}
+						#noti_re_actions.item {
+							.updater_link {
+								/* 顯示所有訊息 */
+								&#mark_all_link {
+									/* 全部標為已讀 */
+								}
+							}
+						}
+					}
+					#unread_loader {
+						/* 河道初始化時的「Loading unread...」 */
+					}
+
+					@at-root #music_player {
+						/* 音樂撥放器 */
+						span {
+							/* 影片名稱 */
+						}
+						.ctrl_stop {
+							/* 關閉 */
+						}
+						.ctrl_show {
+							/* 顯示影片 */
+						}
+					}
+				}
+			}
+		}
+
+		// ==================================================
+		/* 儀錶板 */
+		#dashboard_holder {
+			#plurk-dashboard {
+				&.own {
+					/* 只有自己會套用的樣式 */
+				}
+
+				.dash-group-form {
+					.dash-segment.dash-segment-post {
+						.segment-content {
+							#plurk_form {
+								form#pane_plurk.plurkaction.pane {
+									#main_poster {
+										.plurkForm {
+											@extend %plurk_form;
+
+											.icons_holder {
+												.cmp_emoticon_on {}
+												.cmp_emoticon_off {}
+												.cmp_media_on {}
+												.cmp_media_off {}
+												.cmp_sync_on {}
+												.cmp_sync_off {}
+												.cmp_privacy_on {}
+												.cmp_privacy_off {}
+											}
+											#plurk_to.private_to {
+												/* 私人訊息給 */
+												b {
+													/* 對象 */
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				.dash-group-left {
+					.dash-segment.dash-segment-profile {
+						.segment-content {
+							#dash-profile {
+								/* 個人資訊 */
+								a {
+									img#profile_pic.profile-pic {
+										/* 大頭貼 */
+									}
+								}
+								#full_name {
+									@extend %username;
+									.display_name {
+										/* 顯示名稱 */
+									}
+									.nick_name {
+										/* 帳號名稱 */
+									}
+								}
+								.profile-info {
+									#span_years {
+										/* 年齡 */
+									}
+									#m_or_f {
+										/* 性別 */
+									}
+									#location {
+										/* 居住地 */
+									}
+								}
+							}
+
+							#dash-additional-info {
+								#about_me {
+									/* 關於您自己 */
+									@extend %plurk_text_holder;
+								}
+							}
+						}
+					}
+				}
+
+				.dash-group-right {
+					.dash-segment.dash-segment-stats {
+						.segment-content {
+							#dash-stats {
+								h2 {
+									/* 統計 */
+								}
+								.dash-stats-karma {
+									.karma_hover {
+										#karma_holder {
+											/* Karma: */
+											#karma_div {
+												#karma.karma_top {
+													/* Karma值 */
+												}
+											}
+										}
+										#karma_arrow {
+											/* Karma上升下降箭頭 */
+										}
+									}
+									.help {
+										a {
+											/* 假期模式? */
+										}
+									}
+									a.link_arrow {
+										/* 什麼是 Karma？ */
+									}
+								}
+								table#dash-stats-table {
+									th {
+										/* 統計表格標題字 */
+									}
+									td {
+										/* 統計資料 */
+										&#profile_views {
+											/* 人氣指數 */
+										}
+										&#plurks_count {
+											/* 發噗數 */
+										}
+										&#response_count {
+											/* 回應數 */
+										}
+										&#join_date {
+											/* 註冊日期 */
+										}
+										&#last_visit {
+											/* 上次登入 */
+										}
+									}
+								}
+							}
+						}
+					}
+					.dash-segment.dash-segment-friends {
+						.segment-content {
+							#dash-friends {
+								h2 {
+									/* 朋友 */
+								}
+								#dash-friends-pics {
+									.show_all_friends {
+										a {
+											/* 所有朋友 */
+										}
+									}
+									.show_mutual_friends {}
+									#friend_holder.friend_holder {
+										ul {
+											/* 朋友列表 */
+											li {
+												a.user_link {
+													img {
+														/* 朋友的大頭貼 */
+													}
+												}
+											}
+										}
+
+									}
+								}
+							}
+						}
+					}
+					.dash-segment.friendsList.dash-segment-fans {
+						.segment-content {
+							#dash-fans {
+								h2#h2_fans {
+									/* 粉絲 */
+								}
+								#dash-fans-pics {
+									.show_all_friends {
+										a {
+											/* 所有粉絲 */
+										}
+									}
+									#fan_holder.friend_holder {
+										/* 粉絲列表 */
+									}
+								}
+							}
+						}
+					}
+					.dash-segment.dash-segment-award {
+						.segment-content {
+							#dash-award {
+								.award_bar {
+									/* 徽章列表 */
+									img {
+										/* 徽章 */
+									}
+								}
+								a.link_arrow {
+									/* 如何獲得徽章？ */
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// ==================================================
+		/* 頁尾 */
+		footer {
+			#footer {
+				ul {
+					li {
+						&.copyright {
+							/* copyright */
+						}
+					}
+				}
+			}
+		}
+	}
+}
