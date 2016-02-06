@@ -1,0 +1,16 @@
+{
+  "name": "plurkcss",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "compass-mixins": "~0.12.7",
+    "grunt-sass": "~1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stu43005/plurkcss.git"
+  },
+  "author": "stu43005"
+}
