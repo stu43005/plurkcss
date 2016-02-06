@@ -415,6 +415,9 @@ html { // #layout_content_html
 				&.own {
 					/* 只有自己會套用的樣式 */
 				}
+				&.narrow {
+					/* 瀏覽器寬度縮小時 */
+				}
 
 				.dash-group-form {
 					.dash-segment.dash-segment-post {
