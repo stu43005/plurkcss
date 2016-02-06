@@ -1,11 +1,23 @@
 @charset "UTF-8";
+@import "compass/css3";
 
-$uid: ''; // 你的uid
+$uid: '3302458'; // 你的uid
+
+$page-background: "https://i.imgur.com/IQ7hPYQ.jpg";
+$cmp-plruk-img: "https://i.imgur.com/rgVAlV7.png";
+$text-size: 12px;
+$link-color: #6696C4;
+$user-color: #675E4C;
+$highlight-owner: lighten(#9EC0DA, 21%); // 調亮21%
+$highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 
 // ==================================================
 
 %username {
 	/* 使用者名稱 */
+	color: $user-color;
+	font-size: $text-size;
+	font-weight: bold;
 }
 
 %qualifier {
@@ -63,6 +75,10 @@ $uid: ''; // 你的uid
 	}
 	.char_updater {
 		/* 字太多囉 */
+		a {
+			color: $link-color;
+			text-decoration: none;
+		}
 	}
 }
 
@@ -72,6 +88,11 @@ $uid: ''; // 你的uid
 
 %plurk_command {
 	/* 「Plurk」按鈕 */
+	color: transparent;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-webkit-mask-box-image: url($cmp-plruk-img);
 }
 
 %plurk_content {
@@ -91,17 +112,29 @@ $uid: ''; // 你的uid
 
 %plurk_text_holder {
 	/* 噗浪內文字型 */
+	font-size: $text-size;
+	// 修正斷行
+	word-wrap: break-word;
+	word-break: break-all;
 	a {
 		&.ex_link {
 			/* 外部連結 */
+			color: $link-color;
 		}
 		&.pictureservices {
 			img {
 				/* 圖片 */
+				padding: 0 2px;
 			}
 		}
 		&.hashtag {
 			/* Hashtag */
+			color: $link-color;
+			&:hover, &:active {
+				background-color: $link-color;
+				color: #FFF;
+				text-decoration: none;
+			}
 		}
 	}
 }
@@ -116,7 +149,14 @@ $uid: ''; // 你的uid
 // ==================================================
 
 html { // #layout_content_html
-	body { // #layout_content
+	background: url($page-background);
+	background-position: top;
+	background-size: cover;
+	background-attachment: fixed;
+	font-size: $text-size;
+	font-family: sans-serif;
+
+	//body { // #layout_content
 		
 		// ==================================================
 		/* 河道 */
@@ -134,6 +174,9 @@ html { // #layout_content_html
 				}
 				#empty_timeline_fg {
 					/* 「沒有任何未讀訊息了」、「此時間軸目前設為私密狀態。」前景字 */
+					a {
+						color: $link-color;
+					}
 				}
 
 				.block_cnt {
@@ -150,15 +193,55 @@ html { // #layout_content_html
 					}
 
 					.plurk {
-						&.display {
+						// ==> begin 取消display
+						&.display, &.toggled {
+							&, table {
+								width: initial;
+							}
+							.text_holder {
+								width: 160px;
+								height: 1.3em;
+								min-height: initial;
+								white-space: inherit;
+							}
+							.truncated_media_height {
+								width: 90px;
+								height: 50px;
+							}
 						}
-						&.link_extend {
+						&.link_extend, &:hover, &.plurk_box {
+							width: 380px;
+							z-index: 1200;
+							table {
+								width: 100%;
+							}
+							.text_holder {
+								width: 100%;
+								height: auto;
+								min-height: 2em;
+								white-space: normal;
+							}
 						}
 						&.plurk_box {
-							/* 已展開該噗 */
+							width: 503px;
+							.text_holder {
+								width: 100% !important;
+								margin-right: 6px;
+							}
 						}
+						// <== end 取消display
+
 						&.muted {
-							/* 已被消音 */
+							/* 消音噗半透明 */
+							@include opacity(0.5);
+						}
+						&.link_extend.muted, &.muted:hover {
+							/* 滑鼠移過消音噗微亮 */
+							@include opacity(0.8);
+						}
+						&.plurk_box.muted {
+							/* 展開消音噗全亮 */
+							@include opacity(1);
 						}
 
 						&[data-uid='#{$uid}'] {
@@ -184,8 +267,19 @@ html { // #layout_content_html
 
 						.plurk_cnt {
 							@extend %plurk_content;
-							
+							@include opacity(0.8);
+							background: #fff !important;
+							@include border-bottom-right-radius(5px);
+							@include border-top-right-radius(5px);
+							@include border-bottom-left-radius(5px);
+							border: none;
+							min-height: 30px;
+							transition: none;
+
 							.td_cnt {
+								.text_holder {
+									min-width: 120px;
+								}
 								.manager {
 									/* 河道噗控制項 */
 									.mute-on {
@@ -213,6 +307,7 @@ html { // #layout_content_html
 							}
 							.tr_info {
 								.td_info {
+									@include border-bottom-right-radius(5px);
 								}
 							}
 						}
@@ -221,10 +316,39 @@ html { // #layout_content_html
 							a {
 								.response_count {
 									/* 回噗數 */
+									@include opacity(0.8);
+									@include border-radius(5px);
+									font-size: ($text-size - 1);
+									padding: 6px 5px 8px;
+									line-height: 25px;
 								}
 							}
 						}
 
+						.plurk_cnt, .p_img img, .response_count {
+							@include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+						}
+
+						&.link_extend, &:hover {
+							/* 滑鼠移過後上層顯示 */
+							z-index: 1451;
+							.plurk_cnt {
+								background: rgba(255,255,255,0.8) !important;
+							}
+						}
+						&.plurk_box {
+							/* 展開留言上層顯示 */
+							z-index: 1450;
+							.plurk_cnt {
+								background: rgba(255,255,255,1) !important;
+								@include opacity(1);
+								&, .td_info {
+									// 顯示回噗後關閉右下圓角
+									@include border-bottom-right-radius(0);
+									@include border-bottom-left-radius(0);
+								}
+							}
+						}
 					}
 				}
 			}
@@ -248,8 +372,10 @@ html { // #layout_content_html
 					.div_bottom {
 						.bottom_start {
 							/* 噗文時間 */
+							font-size: ($text-size - 2);
 							@at-root #time_show {
 								/* 詳細時間顯示 */
+								font-size: ($text-size - 2);
 								&.evening, &.night, &.day, &.morning {
 									/* 各時間樣式 */
 								}
@@ -281,7 +407,14 @@ html { // #layout_content_html
 		// ==================================================
 		/* 回噗區塊 */
 		#form_holder.plurk_box {
+			@include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+			margin-top: -1px;
+
 			.response_box {
+				border: 0;
+				border-top: 1px solid #EBEBEB;
+				border-image: -webkit-gradient(linear, 0 0, 100% 1%, color-stop(0, rgba(0,0,0,0)), color-stop(0.5, rgba(0,0,0,0.1)), color-stop(1, rgba(0,0,0,0))) 1;
+
 				.favorite_count {
 					/* 喜歡數量 */
 				}
@@ -290,21 +423,28 @@ html { // #layout_content_html
 				}
 				.list {
 					/* 回噗列表 */
+					// 週末長知識: scrollable 的捲動重繪問題 http://pymaster.logdown.com/post/344574
+					will-change: transform;
 					.loading {
 						img {
 							/* 回噗的loading圖 */
 						}
 					}
 					.plurk {
-						&.highlight_owner {
-							/* 噗主回應 */
-						}
-						&[data-uid='#{$uid}'] {
-							/* 自己回應 */
-						}
-
 						.plurk_cnt {
 							@extend %plurk_content;
+							@include border-radius(5px);
+						}
+						&.highlight_owner .plurk_cnt {
+							/* 噗主回應 */
+							background: $highlight-owner !important;
+						}
+						&[data-uid='#{$uid}'] .plurk_cnt {
+							/* 自己回應 */
+							background: $highlight-uid !important;
+						}
+						&:hover .plurk_cnt {
+							background-color: #EEE !important;
 						}
 					}
 				}
@@ -313,6 +453,10 @@ html { // #layout_content_html
 				/* 有新回應 */
 			}
 			.mini_form {
+				border: 0;
+				border-top: 1px solid #EBEBEB;
+				border-image: -webkit-gradient(linear, 0 0, 100% 1%, color-stop(0, rgba(0,0,0,0)), color-stop(0.5, rgba(0,0,0,0.1)), color-stop(1, rgba(0,0,0,0))) 1;
+
 				.plurkForm {
 					@extend %plurk_form;
 
@@ -353,9 +497,29 @@ html { // #layout_content_html
 
 		// ==================================================
 		/* 河道控制項 */
-		#timeline_control {
+		.timeline_control {
+			// 控制項移至河道底部
+			margin-top: 20px;
+			// 改為舊版樣式
+			margin-left: 0;
+
 			#timeline_control_holder {
+				// 改為舊版樣式
+				width: 100%;
+
 				#filter_tab {
+					li {
+						// 改為舊版樣式
+						clear: none;
+						width: auto;
+						margin-right: 5px;
+
+						a {
+							// 改為舊版樣式
+							height: 25px !important;
+							margin: 0 !important;
+						}
+					}
 					.filter_selected {
 						/* 已選擇 */
 					}
@@ -368,6 +532,10 @@ html { // #layout_content_html
 				}
 
 				#updater {
+					font-size: ($text-size - 1);
+					// 改為舊版樣式
+					left: 5px;
+
 					#noti_np.item {
 						#noti_np_text.text {
 							/* 新訊息 */
@@ -384,16 +552,27 @@ html { // #layout_content_html
 								/* 顯示所有訊息 */
 								&#mark_all_link {
 									/* 全部標為已讀 */
+									@extend %hidden;
 								}
 							}
 						}
 					}
 					#unread_loader {
 						/* 河道初始化時的「Loading unread...」 */
+						color: $link-color;
+						background: #FFF;
+						white-space: nowrap;
+						height: 25px;
+						line-height: 25px;
+						@include border-radius(5px);
+						padding: 0 8px;
+						text-align: center;
 					}
 
 					@at-root #music_player {
 						/* 音樂撥放器 */
+						font-size: ($text-size - 1);
+
 						span {
 							/* 影片名稱 */
 						}
@@ -411,6 +590,9 @@ html { // #layout_content_html
 		// ==================================================
 		/* 儀錶板 */
 		#dashboard_holder {
+			margin-top: 0;
+			padding-top: 0;
+
 			#plurk-dashboard {
 				&.own {
 					/* 只有自己會套用的樣式 */
@@ -631,5 +813,5 @@ html { // #layout_content_html
 				}
 			}
 		}
-	}
+	//}
 }
