@@ -287,7 +287,7 @@ html, body {
 				/* 消音噗半透明 */
 				@include opacity(0.5);
 			}
-			&.link_extend.muted, , &.muted:hover {
+			&.link_extend.muted, &.muted:hover {
 				/* 滑鼠移過消音噗微亮 */
 				@include opacity(0.8);
 			}
