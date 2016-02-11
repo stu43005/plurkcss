@@ -74,7 +74,7 @@ $uid: ''; // 你的uid
 	/* 「Plurk」按鈕 */
 }
 
-%plurk_content {
+%plurk_content { // .plurk_cnt
 	/* 河道噗文、回噗 共用樣式 */
 	.td_qual {
 		@extend %qualifier;

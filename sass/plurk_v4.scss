@@ -95,8 +95,9 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 	-webkit-mask-box-image: url($cmp-plruk-img);
 }
 
-%plurk_content {
+%plurk_content { // .plurk_cnt
 	/* 河道噗文、回噗 共用樣式 */
+	transition: none;
 	.td_qual {
 		@extend %qualifier;
 		a.name {
@@ -272,7 +273,6 @@ html { // #layout_content_html
 						@include border-bottom-left-radius(5px);
 						border: none;
 						min-height: 30px;
-						transition: none;
 
 						.td_cnt {
 							.text_holder {
