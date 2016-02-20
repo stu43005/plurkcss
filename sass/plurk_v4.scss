@@ -122,6 +122,10 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 			/* 外部連結 */
 			color: $link-color;
 		}
+		&.meta {
+			/* 含圖片文字說明連結 */
+			border-radius: 4px;
+		}
 		&.pictureservices {
 			img {
 				/* 圖片 */
@@ -490,6 +494,25 @@ html { // #layout_content_html
 		}
 		#resp_banner_ads {
 			@extend %hidden;
+		}
+	}
+
+	/* 回噗時間 */
+	.response_time {
+		@include border-top-right-radius(5px);
+		@include border-bottom-right-radius(5px);
+		@include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+		@include opacity(0.7);
+		&:hover {
+			@include opacity(1);
+		}
+		.holder {
+			p {
+				/* 時間 */
+			}
+			.reply_to, .resp_icon, .del_icon {
+				/* 「回覆、刪除」連結 */
+			}
 		}
 	}
 

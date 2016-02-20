@@ -95,6 +95,9 @@ $uid: ''; // 你的uid
 		&.ex_link {
 			/* 外部連結 */
 		}
+		&.meta {
+			/* 含圖片文字說明連結 */
+		}
 		&.pictureservices {
 			img {
 				/* 圖片 */
@@ -347,6 +350,18 @@ html { // #layout_content_html
 		}
 		#resp_banner_ads {
 			@extend %hidden;
+		}
+	}
+
+	/* 回噗時間 */
+	.response_time {
+		.holder {
+			p {
+				/* 時間 */
+			}
+			.reply_to, .resp_icon, .del_icon {
+				/* 「回覆、刪除」連結 */
+			}
 		}
 	}
 
