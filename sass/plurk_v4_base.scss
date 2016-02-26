@@ -370,27 +370,44 @@ html { // #layout_content_html
 	.timeline_control {
 		#timeline_control_holder {
 			#filter_tab {
-				.filter_selected {
-					/* 已選擇 */
-				}
-				.off_tab {
-					/* 未選擇 */
-				}
-				#all_plurks, #own_plurks_tab_btn, #private_plurks_tab_btn, #responded_plurks_tab_btn, #favorite_plurks_tab_btn {
-					/* 各河道選項 */
+				li {
+					a {
+						&.filter_selected {
+							/* 已選擇 */
+						}
+						&.off_tab {
+							/* 未選擇 */
+						}
+						&#all_plurks, &#own_plurks_tab_btn, &#private_plurks_tab_btn, &#responded_plurks_tab_btn, &#favorite_plurks_tab_btn {
+							/* 各河道選項 */
+						}
+
+						.unread_generic {
+							/* 未讀計數 */
+						}
+						#count_all_plurk, #count_my_plurks, #count_private_plurks, #count_responded_plurks, #count_favorite_plurks {
+							/* 各河道未讀計數 */
+						}
+					}
 				}
 			}
 
 			#updater {
 				#noti_np.item {
-					#noti_np_text.text {
+					#noti_np_text {
 						/* 新訊息 */
+					}
+					#noti_np_count.unread_generic {
+						/* 新訊息數量 */
 					}
 				}
 				#noti_re.item {
 					#noti_re_view.item {
-						#noti_re_text.text {
-							/* 新回應 */
+						#noti_re_text {
+							/* 檢視未讀訊息 */
+						}
+						#noti_re_count.unread_generic {
+							/* 未讀訊息數量 */
 						}
 					}
 					#noti_re_actions.item {
