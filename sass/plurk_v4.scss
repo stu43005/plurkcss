@@ -212,7 +212,7 @@ html { // #layout_content_html
 							min-width: inherit;
 						}
 					}
-					&.link_extend, &:hover {
+					&.link_extend, &:hover, &.plurk_box {
 						width: 380px;
 						z-index: 1200;
 						table {
@@ -230,9 +230,6 @@ html { // #layout_content_html
 					&.plurk_box {
 						width: 503px;
 						z-index: 1450;
-						table {
-							width: 100%;
-						}
 						.text_holder {
 							width: 100% !important;
 						}
