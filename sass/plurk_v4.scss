@@ -198,21 +198,21 @@ html { // #layout_content_html
 				.plurk {
 					// ==> begin 取消display
 					&.display, &.toggled {
+						z-index: 1000;
 						&, table {
-							width: initial;
+							width: inherit;
 						}
 						.text_holder {
-							width: 160px;
-							height: 1.3em;
-							min-height: initial;
-							white-space: inherit;
-						}
-						.truncated_media_height {
-							width: 90px;
-							height: 50px;
+							width: 180px;
+							min-height: 1.3em;
+							// 噗浪程式依照河道高度計算 (TimeLine.resize)
+							$timeline_holder_height: 762px;
+							$text_holder_max_height: $timeline_holder_height * 0.0829;
+							max-height: $text_holder_max_height !important;
+							min-width: inherit;
 						}
 					}
-					&.link_extend, &:hover, &.plurk_box {
+					&.link_extend, &:hover {
 						width: 380px;
 						z-index: 1200;
 						table {
@@ -220,16 +220,21 @@ html { // #layout_content_html
 						}
 						.text_holder {
 							width: 100%;
-							height: auto;
+							height: auto !important;
 							min-height: 2em;
+							max-height: none !important;
 							white-space: normal;
+							min-width: 180px;
 						}
 					}
 					&.plurk_box {
 						width: 503px;
+						z-index: 1450;
+						table {
+							width: 100%;
+						}
 						.text_holder {
 							width: 100% !important;
-							margin-right: 6px;
 						}
 					}
 					// <== end 取消display
@@ -340,7 +345,6 @@ html { // #layout_content_html
 					}
 					&.plurk_box {
 						/* 展開留言上層顯示 */
-						z-index: 1450;
 						.plurk_cnt {
 							background: rgba(255,255,255,1) !important;
 							@include opacity(1);
