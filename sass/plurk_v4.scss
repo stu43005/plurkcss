@@ -135,10 +135,11 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 		&.hashtag {
 			/* Hashtag */
 			color: $link-color;
-			&:hover, &:active {
+			&:hover {
 				background-color: $link-color;
 				color: #FFF;
 				text-decoration: none;
+				margin: 0;
 			}
 		}
 	}
