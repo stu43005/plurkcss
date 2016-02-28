@@ -1,0 +1,27 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns": [".sass-cache", "node_modules"]
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Grunt",
+			"cmd": ["grunt"],
+			"selector": "source.scss",
+			"windows": {
+				"cmd": ["grunt.cmd"]
+			}
+		},
+		{
+			"name": "npm install",
+			"cmd": ["npm", "install"],
+			"windows": {
+				"cmd": ["npm.cmd", "install"]
+			}
+		}
+	]
+}

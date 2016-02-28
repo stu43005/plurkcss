@@ -2,6 +2,7 @@ test.scss
 *.css
 *.lnk
 *.bat
+*.sublime-workspace
 
 # Sass.gitignore
 .sass-cache/
