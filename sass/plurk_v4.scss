@@ -126,11 +126,19 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 			/* 含圖片文字說明連結 */
 			border-radius: 4px;
 		}
+		&.plink {
+			/* 噗浪內部連結 */
+		}
 		&.pictureservices {
 			img {
 				/* 圖片 */
 				padding: 0 2px;
 			}
+		}
+		&.ogvideo {
+			/* 影片 */
+			// no 'ex_link' class
+			color: $link-color;
 		}
 		&.hashtag {
 			/* Hashtag */
