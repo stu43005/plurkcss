@@ -22,11 +22,26 @@ module.exports = function(grunt) {
 					ext: '.css'
 				}]
 			}
+		},
+		postcss: {
+			options: {
+				map: false,
+				processors: [
+					require('autoprefixer')({
+						browsers: ['last 2 versions']
+					}),
+					require('cssnano')()
+				]
+			},
+			dist: {
+				src: 'stylesheets/*.css'
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-postcss');
 
-	grunt.registerTask('default', ['sass']);
+	grunt.registerTask('default', ['sass', 'postcss:dist']);
 
 };
