@@ -4,11 +4,8 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
-    "autoprefixer": "^6.3.6",
-    "compass-mixins": "~0.12.7",
-    "cssnano": "^3.5.2",
     "grunt": "~0.4.5",
-    "grunt-postcss": "^0.8.0",
+    "compass-mixins": "~0.12.7",
     "grunt-sass": "~1.1.0"
   },
   "repository": {
