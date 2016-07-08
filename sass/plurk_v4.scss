@@ -313,6 +313,10 @@ html { // #layout_content_html
 								.like-off {
 									/* 未喜歡 */
 								}
+								.gift {
+									/* 鼓勵這則噗 */
+									@extend %hidden;
+								}
 							}
 						}
 						.tr_info {
