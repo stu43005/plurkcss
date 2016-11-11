@@ -150,6 +150,19 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 	}
 }
 
+%friend_holder {
+	/* 朋友列表 */
+	ul {
+		li {
+			a.user_link {
+				img {
+					/* 大頭貼 */
+				}
+			}
+		}
+	}
+}
+
 %hidden {
 	/* 隱藏物件 */
 	// display: none !important;
@@ -206,7 +219,7 @@ html { // #layout_content_html
 					&.display, &.toggled {
 						z-index: 1000;
 						&, table {
-							width: inherit;
+							width: auto;
 						}
 						.text_holder {
 							width: 180px;
@@ -266,6 +279,13 @@ html { // #layout_content_html
 					&.banana_plurk {
 						/* 贊助噗 */
 						@extend %hidden;
+					}
+
+					&.product {
+						/* 噗浪商店的商品 */
+						&.soldout {
+							/* 完售的商品 */
+						}
 					}
 
 					.td_img {
@@ -687,6 +707,19 @@ html { // #layout_content_html
 								}
 							}
 						}
+
+						#dash-store {
+							/* 噗打合作社 */
+							#store-functions {
+								#store-link-solda a {
+									/* 「我要開店」 */
+								}
+							}
+							#store-hint {
+								.store-hint-logo img {}
+								.store-hint {}
+							}
+						}
 					}
 				}
 			}
@@ -803,18 +836,17 @@ html { // #layout_content_html
 								}
 								.show_mutual_friends {}
 								#friend_holder.friend_holder {
-									ul {
-										/* 朋友列表 */
-										li {
-											a.user_link {
-												img {
-													/* 朋友的大頭貼 */
-												}
-											}
-										}
-									}
-
+									/* 朋友列表 */
+									@extend %friend_holder;
 								}
+							}
+						}
+						#dash-friends-store {
+							h2 {
+								/* 噗友的商店 */
+							}
+							#friend-store-holder.friend_holder {
+								@extend %friend_holder;
 							}
 						}
 					}
@@ -833,6 +865,7 @@ html { // #layout_content_html
 								}
 								#fan_holder.friend_holder {
 									/* 粉絲列表 */
+									@extend %friend_holder;
 								}
 							}
 						}
