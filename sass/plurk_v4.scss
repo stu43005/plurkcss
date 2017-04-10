@@ -148,6 +148,12 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 			}
 		}
 	}
+	code {
+		font-family: "Menlo", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+		border-radius: 3px;
+		border: 1px solid rgba(0, 0, 0, .2);
+		padding: 0 .3em;
+	}
 }
 
 %friend_holder {
