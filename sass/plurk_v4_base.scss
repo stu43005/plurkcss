@@ -196,13 +196,6 @@ html { // #layout_content_html
 						@extend %hidden;
 					}
 
-					&.product {
-						/* 噗浪商店的商品 */
-						&.soldout {
-							/* 完售的商品 */
-						}
-					}
-
 					.td_img {
 						.p_img {
 							img {
@@ -509,19 +502,6 @@ html { // #layout_content_html
 								}
 							}
 						}
-
-						#dash-store {
-							/* 噗打合作社 */
-							#store-functions {
-								#store-link-solda a {
-									/* 「我要開店」 */
-								}
-							}
-							#store-hint {
-								.store-hint-logo img {}
-								.store-hint {}
-							}
-						}
 					}
 				}
 			}
@@ -641,14 +621,6 @@ html { // #layout_content_html
 									/* 朋友列表 */
 									@extend %friend_holder;
 								}
-							}
-						}
-						#dash-friends-store {
-							h2 {
-								/* 噗友的商店 */
-							}
-							#friend-store-holder.friend_holder {
-								@extend %friend_holder;
 							}
 						}
 					}
