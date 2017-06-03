@@ -154,6 +154,12 @@ $highlight-uid: lighten(#CE8C8D, 24%); // 調亮21%
 		border: 1px solid rgba(0, 0, 0, .2);
 		padding: 0 .3em;
 	}
+	.emoticon_my + .emoticon_my,
+	.emoticon_my_wrapper + .emoticon_my,
+	.emoticon_my + .emoticon_my_wrapper {
+		/* 無縫組合表情符號 */
+		margin-left: -4px;
+	}
 }
 
 %friend_holder {
