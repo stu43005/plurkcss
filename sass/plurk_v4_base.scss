@@ -196,6 +196,10 @@ html { // #layout_content_html
 						@extend %hidden;
 					}
 
+					&.porn {
+						/* R18噗 */
+					}
+
 					.td_img {
 						.p_img {
 							img {
